@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Node {
 	private double x, y;
-	private List<Node> children;
+	private List<Node> children = new ArrayList<>();
 
 	/**
 	 * Builds a new Node from its absolute position.
@@ -24,7 +24,6 @@ public class Node {
 	public Node(double x, double y) {
 		this.x = x;
 		this.y = y;
-		this.children = new ArrayList<>();
 	}
 
 	/**
@@ -62,8 +61,37 @@ public class Node {
 	 * @param measurement The Node to be added.
 	 */
 	public void addChild(Node child) {
-		if (!children.contains(child))
+		if (!children.contains(child) && !isInTree(child)) //que el nodo a añadir no esté ya 
 			children.add(child);
+		
 	}
 
+	public boolean isInTree(Node node) {
+		for(Node child: children) {
+			if(child == node || child.isInTree(node)) // se comprueba que el child d la iteración no sea el mismo q le he pasado ni que esté ya en el árbol genealógico más abajo o así
+				return true;
+			}
+		return false;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

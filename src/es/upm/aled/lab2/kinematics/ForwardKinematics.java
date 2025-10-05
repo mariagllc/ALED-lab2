@@ -27,10 +27,59 @@ public class ForwardKinematics {
 	// Public method: returns the root of the position tree
 	public static Node computePositions(Segment root, double originX, double originY) {
 		// TODO: Implemente este método
+		return computePositions(root, originX, originY, 0);
 	}
 
 	// Private helper method that implements the recursive algorithm
 	private static Node computePositions(Segment link, double baseX, double baseY, double accumulatedAngle) {
 		// TODO: Implemente este método
+		// código general, para comprobarlo
+		long startTime = System.nanoTime();
+		double newAccumulatedAngle = accumulatedAngle + link.getAngle();
+		double newBaseX = baseX + link.getLength()*Math.cos(newAccumulatedAngle);
+		double newBaseY = baseY + link.getLength()*Math.sin(newAccumulatedAngle);
+		Node n =new Node( newBaseX, newBaseY);
+		// hay que crear un Node. el único nodo que no tendrá hijos es el último de cada rama
+		//Para este problema,elcasobasedeberáocurrircuandoelSegment que
+		//se pasa al método recursivo no tenga hijos. Si se da esta circunstancia, deberá construirse
+		//el Node pertinente, pero este no tendrá tampoco hijos. CASO BASE
+		if(link.getChildren().isEmpty()) {
+			long runningTime = System.nanoTime() - startTime;
+			System.out.println("Tiempo de computePositions para un segmento con "
+			+ link.getChildren().size() + " hijos: "
+			+ runningTime + " nanosegundos");
+			return n;						//el ultimo nodo q calculas es el que no tiene más hijos
+		}
+		//Paso recursivo:
+		for(Segment child : link.getChildren()) {
+			n.addChild(computePositions(child,newBaseX,newBaseY,newAccumulatedAngle));
+		}
+		long runningTime = System.nanoTime() - startTime;
+		System.out.println("Tiempo de computePositions para un segmento con "
+		+ link.getChildren().size() + " hijos: "
+		+ runningTime + " nanosegundos");
+		return n;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

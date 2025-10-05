@@ -32,20 +32,21 @@ public class SkeletonPanel extends JPanel {
 	 * @param sizeX The height of the window.
 	 */
 	public SkeletonPanel(Segment root, int sizeX, int sizeY) {
+		//crea un objeto SkeletonPanel, con el segmento raíz, y la anchura y altura de la window en la que se va a representar tosdo
 		this.root = root;
 		// Setup Swing window
 		JFrame frame = new JFrame("Recursive Skeleton - Forward Kinematics");
-		frame.add(this);
+		frame.add(this); //añade el objeto de skeletonPanel
 		frame.setSize(600, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // cierra la ventana de representacion
+		frame.setVisible(true); //indica que se haga visible el skeleton
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		// Draws the window
-		super.paintComponent(g);
-		float originX = getWidth() / 2;
+		super.paintComponent(g); //reescribe y coge todo lo que hace paintComponent en la clase JComponent
+		float originX = getWidth() / 2; //origin x y origin y son los puntos iniciales del segmento raíz
 		float originY = getHeight() / 2;
 
 		// Computes the full tree of positions
@@ -55,13 +56,16 @@ public class SkeletonPanel extends JPanel {
 		drawSkeleton(g, originX, originY, nodeRoot);
 	}
 
-	private void drawSkeleton(Graphics g, double parentX, double parentY, Node node) {
+	private void drawSkeleton(Graphics g, double parentX, double parentY, Node node) { //cada drawSkeleton() solo retornará cuando lo hayan hecho todos los drawSkeleton() a los que este ha llamado
 		// TODO: Ponga comentarios en este método
+		//gral
 		g.fillOval((int) node.getX() - 4, (int) node.getY() - 4, 8, 8);
 		g.drawLine((int) parentX, (int) parentY, (int) node.getX(), (int) node.getY());
+		//caso base
 		if (node.getChildren().size() == 0) {
 			return;
 		}
+		//caso recursivo
 		for (Node child : node.getChildren()) {
 			drawSkeleton(g, node.getX(), node.getY(), child);
 		}
