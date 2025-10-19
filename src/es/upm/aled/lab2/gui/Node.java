@@ -65,7 +65,7 @@ public class Node {
 			children.add(child);
 		
 	}
-
+	// ejercicio extra de la practica
 	public boolean isInTree(Node node) {
 		for(Node child: children) {
 			if(child == node || child.isInTree(node)) // se comprueba que el child d la iteración no sea el mismo q le he pasado ni que esté ya en el árbol genealógico más abajo o así

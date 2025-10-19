@@ -1,16 +1,15 @@
 package es.upm.aled.lab2.kinematics;
+import java.util.ArrayList;
 import java.util.List;
 
-import es.upm.aled.lab2.gui.Node;
 
-import java.util.ArrayList;
 
 // TODO: Implemente la clase
 public class Segment {
 
 	private double length; // longitud en cm
 	private double angle; // angulo en rad
-	private List<Segment> children = new ArrayList(); // lista de segmentos hijo de cada segmento 
+	private List<Segment> children;
 	
 	/**
 	 * Builds a new Segment with its angle, length and children.
@@ -22,7 +21,7 @@ public class Segment {
 	public Segment(double length, double angle) {
 		this.length =length;
 		this.angle = angle;
-		this.children = children;
+		this.children = new ArrayList<>();// lista de segmentos hijo de cada segmento 
 	}
 	/**
 	 * Returns the length of the segment.
